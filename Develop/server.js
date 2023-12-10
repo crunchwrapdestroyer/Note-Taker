@@ -10,9 +10,11 @@ const routes = require('./routes/routes')
 
 
 // Install middleware
-app.use(express.json)
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(routes)
+
 //Start server
 app.listen(PORT, () => {
     console.log(`Server is listening on http://localhost:${PORT}`)
