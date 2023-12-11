@@ -21,31 +21,31 @@ router.get('/api/notes', (req, res) => {
     })
 })
 
-
-
 //Set up * GET route for index.html
 
 //Set up /api/notes POST route
 router.post('/api/notes', (req, res) => {
-    const newNote = req.body
+    const newNote = {
+        ...req.body,
+        id: uuidv4()
+    }
     fs.readFile(path.join(__dirname, '../db/db.json'), 'utf8', (err, data) => {
         if (err) {
-            console.error(err)
             res.status(500).json({ error: 'Internal Server Error'})
             return;
         }
         const parsedData = JSON.parse(data)
         parsedData.push(newNote)
+        console.log('Parsed Data after pushing new note:', parsedData);
+
         console.log (parsedData)
         const stringData = JSON.stringify(parsedData)
+        
         fs.writeFile(path.join(__dirname, '../db/db.json'), stringData, (err) => {
         })    
-        res.json(newNote)
+        res.json(parsedData)
         console.log('Added new note: ' + newNote.title)
     })
-    
-        // res.json(newNote)
-        console.log('Added  new note: ' + newNote.title)
     })
 
 router.delete('/api/notes/:id', (req, res) => {
