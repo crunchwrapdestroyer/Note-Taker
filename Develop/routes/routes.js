@@ -35,6 +35,7 @@ router.post('/api/notes', (req, res) => {
             return;
         }
         const parsedData = JSON.parse(data)
+        console.log(parsedData)
         parsedData.push(newNote)
         console.log('Parsed Data after pushing new note:', parsedData);
 
